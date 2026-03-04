@@ -1,9 +1,14 @@
 import { test } from '../fixtures/baseTest';
 import { uniqueId } from '../../src/utils/data';
 import { PimEmployeesPage } from '../../src/pages/pim/pim-employees.page';
+import { feature, story, severity } from '../fixtures/allureMeta';
 
 test.describe('PIM', () => {
-  test('add employee, search employee, edit middle name', async ({ page, loginAsAdmin }) => {
+  test('add employee, search employee, edit middle name', async ({ page, loginAsAdmin }, testInfo) => {
+    feature(testInfo, 'PIM');
+    story(testInfo, 'Employee management');
+    severity(testInfo, 'critical');
+
     const pim = new PimEmployeesPage(page);
 
     const firstName = 'John';

@@ -1,7 +1,12 @@
 import { test } from '../fixtures/baseTest';
+import { feature, story, severity } from '../fixtures/allureMeta';
 
 test.describe('Auth', () => {
-  test('login/logout (happy path)', async ({ loginAsAdmin, dashboardPage, loginPage }) => {
+  test('login/logout (happy path)', async ({ loginAsAdmin, dashboardPage, loginPage }, testInfo) => {
+    feature(testInfo, 'Auth');
+    story(testInfo, 'Login');
+    severity(testInfo, 'critical');
+
     await test.step('Login as admin', async () => {
       await loginAsAdmin();
     });
@@ -15,7 +20,11 @@ test.describe('Auth', () => {
     });
   });
 
-  test('negative login - invalid password', async ({ loginPage }) => {
+  test('negative login - invalid password', async ({ loginPage }, testInfo) => {
+    feature(testInfo, 'Auth');
+    story(testInfo, 'Login');
+    severity(testInfo, 'critical');
+
     await test.step('Open login page', async () => {
       await loginPage.open();
     });

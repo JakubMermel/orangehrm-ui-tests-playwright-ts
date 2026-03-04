@@ -9,6 +9,18 @@ type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
+  page: async ({ page }, use, testInfo) => {
+    await use(page);
+
+    if (testInfo.status !== testInfo.expectedStatus) {
+      const screenshot = await page.screenshot({ fullPage: true });
+      await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
+
+      const html = await page.content();
+      await testInfo.attach('page.html', { body: Buffer.from(html), contentType: 'text/html' });
+    }
+  },
+
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },

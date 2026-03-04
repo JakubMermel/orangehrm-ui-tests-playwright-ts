@@ -1,9 +1,14 @@
 import { test } from '../fixtures/baseTest';
 import { uniqueId } from '../../src/utils/data';
 import { AdminUsersPage } from '../../src/pages/admin/admin-users.page';
+import { feature, story, severity } from '../fixtures/allureMeta';
 
 test.describe('Admin', () => {
-  test('add user, search user, edit status', async ({ page, loginAsAdmin }) => {
+  test('add user, search user, edit status', async ({ page, loginAsAdmin }, testInfo) => {
+    feature(testInfo, 'Admin');
+    story(testInfo, 'User management');
+    severity(testInfo, 'critical');
+
     const adminUsers = new AdminUsersPage(page);
 
     const username = uniqueId('user');

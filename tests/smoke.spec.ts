@@ -1,6 +1,11 @@
 import { test } from './fixtures/baseTest';
+import { feature, story, severity } from './fixtures/allureMeta';
 
-test('login/logout smoke', async ({ loginAsAdmin, dashboardPage, loginPage }) => {
+test('login/logout smoke', async ({ loginAsAdmin, dashboardPage, loginPage }, testInfo) => {
+  feature(testInfo, 'Smoke');
+    story(testInfo, 'Smoke');
+    severity(testInfo, 'normal');
+
   await test.step('Login as admin', async () => {
     await loginAsAdmin();
   });
