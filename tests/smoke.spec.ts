@@ -1,9 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures/baseTest';
 
-test('open login page', async ({ page }) => {
-  await page.goto('/');
-
-  await expect(page.getByRole('textbox', { name: /username/i })).toBeVisible();
-  await expect(page.getByRole('textbox', { name: /password/i })).toBeVisible();
-  await expect(page.getByRole('button', { name: /login/i })).toBeVisible();
+test('login/logout smoke', async ({ loginAsAdmin, dashboardPage, loginPage }) => {
+  await loginAsAdmin();
+  await dashboardPage.logout();
+  await loginPage.isLoaded();
 });

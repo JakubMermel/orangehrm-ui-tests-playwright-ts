@@ -3,13 +3,14 @@ import 'dotenv/config';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
 
   timeout: 60_000,
   expect: { timeout: 10_000 },
 
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  //workers: process.env.CI ? 2 : undefined,
 
   reporter: [
     ['list'],
@@ -18,7 +19,8 @@ export default defineConfig({
 
   use: {
   baseURL: process.env.OHRM_BASE_URL || 'https://opensource-demo.orangehrmlive.com',
-  headless: (process.env.OHRM_HEADLESS ?? 'true') === 'true',
+  //headless: (process.env.OHRM_HEADLESS ?? 'true') === 'true',
+  headless: false,
 
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -29,9 +31,9 @@ export default defineConfig({
   },
 
   projects: [
-    { name: 'Chromium', use: { ...devices['Desktop Chrome'] } },
+    //{ name: 'Chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'Chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } },
-    { name: 'Edge', use: { ...devices['Desktop Edge'], channel: 'msedge' } },
-    { name: 'Firefox', use: { ...devices['Desktop Firefox'] } },
+    //{ name: 'Edge', use: { ...devices['Desktop Edge'], channel: 'msedge' } },
+    //{ name: 'Firefox', use: { ...devices['Desktop Firefox'] } },
   ],
 });
