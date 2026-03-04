@@ -4,22 +4,39 @@ import { PimEmployeesPage } from '../../src/pages/pim/pim-employees.page';
 
 test.describe('PIM', () => {
   test('add employee, search employee, edit middle name', async ({ page, loginAsAdmin }) => {
-    await loginAsAdmin();
-
     const pim = new PimEmployeesPage(page);
-    await pim.open();
 
     const firstName = 'John';
     const lastName = uniqueId('Doe');
     const middleName1 = 'A';
     const middleName2 = 'B';
 
-    await pim.addEmployee({ firstName, middleName: middleName1, lastName });
+    await test.step('Login as admin', async () => {
+      await loginAsAdmin();
+    });
 
-    await pim.open();
+    await test.step('Open PIM -> Employee List', async () => {
+      await pim.open();
+    });
 
-    await pim.searchByEmployeeName(`${firstName} ${lastName}`);
-    await pim.openFirstResult();
-    await pim.editMiddleName(middleName2);
+    await test.step(`Add employee: ${firstName} ${lastName}`, async () => {
+      await pim.addEmployee({ firstName, middleName: middleName1, lastName });
+    });
+
+    await test.step('Return to Employee List', async () => {
+      await pim.open();
+    });
+
+    await test.step('Search employee by name', async () => {
+      await pim.searchByEmployeeName(`${firstName} ${lastName}`);
+    });
+
+    await test.step('Open employee details from results', async () => {
+      await pim.openFirstResult();
+    });
+
+    await test.step(`Edit middle name to "${middleName2}"`, async () => {
+      await pim.editMiddleName(middleName2);
+    });
   });
 });
