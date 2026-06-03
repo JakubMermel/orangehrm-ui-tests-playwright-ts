@@ -20,8 +20,7 @@ export default defineConfig({
 
   use: {
   baseURL: process.env.OHRM_BASE_URL || 'https://opensource-demo.orangehrmlive.com',
-  //headless: (process.env.OHRM_HEADLESS ?? 'true') === 'true',
-  headless: false,
+  headless: (process.env.OHRM_HEADLESS ?? 'true') === 'true',
 
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
